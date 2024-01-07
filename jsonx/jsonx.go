@@ -4,6 +4,8 @@ import (
 	"io"
 )
 
+//go:generate mockgen -source=jsonx/jsonx.go -destination=jsonx/jsonx.mock.go -package=jsonx
+
 // StandardClient encapsulates basic json functionality
 type StandardClient interface {
 	Marshal(v interface{}) ([]byte, error)

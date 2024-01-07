@@ -3,6 +3,7 @@ module github.com/leguminosa/gdk
 go 1.20
 
 require (
+	github.com/golang/mock v1.6.0
 	github.com/gorilla/mux v1.8.0
 	github.com/json-iterator/go v1.1.12
 	github.com/mitchellh/mapstructure v1.5.0
