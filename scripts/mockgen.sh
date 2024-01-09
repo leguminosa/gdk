@@ -5,7 +5,7 @@ current_branch=$(git rev-parse --abbrev-ref HEAD)
 
 # Check if the current branch is main.
 if [[ ${current_branch,,} == "main" ]]; then
-    echo "Generating mockgen on main branch is not allowed. Please checkout to a new branch and try again."
+    printf "\e[0mGenerating mockgen on \e[36mmain\e[0m branch is not allowed. Please checkout to a new branch and try again.\e[0m\n"
     exit 1
 fi
 
@@ -37,9 +37,9 @@ for file in $files; do
     if [[ $file == *mock.go ]]; then
         # Remove mock file if there is no actual file.
         if [[ ! -f ${file%.mock.go}.go ]]; then
-            rm ${file}
-            git add ${file}
-            echo -e "\e[0m${file} removed\e[0m"
+            rm $file
+            git add $file
+            printf "\e[0m%-30s\e[35m%s\e[0m\n" "$file" "removed"
         fi
         continue
     fi
@@ -57,6 +57,6 @@ for file in $files; do
 
     # Generate mock file using mockgen command.
     $(go env GOPATH)/bin/mockgen -source=${file} -destination=${mock_file} -package=$(dirname "$file")
-    git add ${mock_file}
-    echo -e "\e[0m${mock_file} generated\e[0m"
+    git add $mock_file
+    printf "\e[0m%-30s\e[34m%s\e[0m\n" "$mock_file" "generated"
 done
