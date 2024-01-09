@@ -1,0 +1,2 @@
+mockgen:
+	@./scripts/mockgen.sh
